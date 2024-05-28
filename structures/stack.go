@@ -4,11 +4,6 @@ type Stack struct {
 	top *node
 }
 
-type node struct {
-	value int
-	prev  *node
-}
-
 func (s *Stack) IsEmpty() bool {
 	return s.top == nil
 }
@@ -19,8 +14,8 @@ func (s *Stack) Push(value int) {
 		return
 	}
 
-	prev := *s.top
-	s.top = &node{value: value, prev: &prev}
+	next := *s.top
+	s.top = &node{value: value, next: &next}
 }
 
 func (s *Stack) Peek() int {
@@ -37,28 +32,7 @@ func (s *Stack) Pop() int {
 	}
 
 	value := s.Peek()
-	s.top = s.top.prev
+	s.top = s.top.next
 
 	return value
 }
-
-/* func (s *Stack) Pop() int {
-}
-*/
-
-/* func (s *Stack) Push(value int) {
-	prev := *s
-	prev.value = value
-}
-
-func (s *Stack) Peek() int {
-	return s.value
-}
-
-func (s *Stack) Pop() int {
-	top := s.Peek()
-	*s = *s.prev
-
-	return top
-}
-*/

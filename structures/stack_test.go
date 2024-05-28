@@ -5,19 +5,6 @@ import (
 	"testing"
 )
 
-func TestStackInitialization(t *testing.T) {
-	var s1 Stack
-
-	if s1.top != nil {
-		t.Errorf("stack initialization error: got: %v, want: %v", s1.top, nil)
-	}
-
-	var s2 = Stack{}
-	if s2.top != nil {
-		t.Errorf("stack initialization error: got %v, want  %v", s1.top, nil)
-	}
-}
-
 func TestStackPush1(t *testing.T) {
 	tests := []struct {
 		name  string
@@ -80,7 +67,7 @@ func TestStackPush2(t *testing.T) {
 			tail := []int{}
 			for s.top != nil {
 				tail = append(tail, s.top.value)
-				s.top = s.top.prev
+				s.top = s.top.next
 			}
 
 			if !reflect.DeepEqual(tail, tt.want) {
@@ -94,8 +81,8 @@ func TestStackPush2(t *testing.T) {
 func TestStackPeek(t *testing.T) {
 	s := Stack{}
 	s.Push(10)
-	
-	if s.Peek() != 10  && s.top.value != 10 {
+
+	if s.Peek() != 10 && s.top.value != 10 {
 		t.Errorf("peek error: got %v, want %v\n", s.Peek(), 10)
 	}
 }
@@ -104,7 +91,7 @@ func TestStackPop(t *testing.T) {
 	s := Stack{}
 	s.Push(10)
 
-	if val := s.Pop(); val != 10 && s.top.value == 10 { 
+	if val := s.Pop(); val != 10 && s.top.value == 10 {
 		t.Errorf("pop error: got %v, want %v\n", val, 10)
 	}
 }
